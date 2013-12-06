@@ -20,6 +20,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
     // Timezones used on tests
     const DEFAULT_TZ = 'Europe/Madrid';
+    const PACIFIC_TZ = 'Pacific/Nauru';
 
     /**
      * Backup timezone
