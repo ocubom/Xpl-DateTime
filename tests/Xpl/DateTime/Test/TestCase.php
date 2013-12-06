@@ -18,4 +18,32 @@ namespace Xpl\DateTime\Test;
  */
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
+    // Timezones used on tests
+    const DEFAULT_TZ = 'Europe/Madrid';
+
+    /**
+     * Backup timezone
+     *
+     * @var string
+     */
+    static private $timezone;
+
+    /**
+     * Setup test environment
+     */
+    public static function setUpBeforeClass()
+    {
+        // Backup timezone and set a default known value
+        self::$timezone = date_default_timezone_get();
+        date_default_timezone_set(self::DEFAULT_TZ);
+    }
+
+    /**
+     * Clean test environment.
+     */
+    public static function tearDownAfterClass()
+    {
+        // Restore backed timezone
+        date_default_timezone_set(self::$timezone);
+    }
 }

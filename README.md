@@ -17,6 +17,13 @@ Documentation
 The component may be 100% compatible with standard [Date and Time Extension][]
 classes but the names used are based on [ISO 8601][].
 
+To replace the original PHP implementation with this component, include the
+following PHP snippet:
+
+```php
+use Xpl\DateTime\TimeZone as DateTimeZone;
+```
+
 Just use like the standard PHP extension classes.
 
 Installation
