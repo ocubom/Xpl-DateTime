@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * This file is part of the XPL DateTime component.
+ *
+ * © Oscar Cubo Medina <ocubom@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ -->
+<phpunit
+    backupGlobals="false"
+    backupStaticAttributes="false"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
+    convertWarningsToExceptions="true"
+    processIsolation="false"
+    stopOnFailure="false"
+    syntaxCheck="false"
+    bootstrap="tests/bootstrap.php"
+>
+
+    <testsuites>
+        <testsuite name="XPL DateTime Test Suite">
+            <directory suffix="Test.php">./tests/</directory>
+        </testsuite>
+    </testsuites>
+
+    <!-- Ignored files for code coverage -->
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./tests/</directory>
+                <directory>./vendor/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <!-- Generate reports -->
+    <logging>
+        <log
+            type="coverage-html"
+            target="build/coverage"
+            title="XPL\DateTime"
+            charset="UTF-8"
+            yui="true"
+            highlight="true"
+            lowUpperBound="35"
+            highLowerBound="70"
+        />
+        <log
+            type="coverage-clover"
+            target="build/logs/clover.xml"
+        />
+        <log
+            type="junit"
+            target="build/logs/junit.xml"
+            logIncompleteSkipped="false"
+        />
+    </logging>
+
+</phpunit>

@@ -1,0 +1,36 @@
+{
+    "name"         : "xpl/datetime",
+    "description"  : "Enhancements to Date and Time Extension shipped with PHP",
+    "keywords"     : [ "calendar", "clock", "date", "datetime", "time" ],
+    "homepage"     : "http://github.com/ocubom/xpl-datetime",
+    "license"      : "MIT",
+    "authors"      : [{
+        "name"     : "Oscar Cubo Medina",
+        "homepage" : "http://ocubom.github.io"
+    }],
+    "support"      : {
+        "issues"   : "http://github.com/ocubom/xpl-datetime/issues",
+        "wiki"     : "http://github.com/ocubom/xpl-datetime/wiki",
+        "source"   : "http://github.com/ocubom/xpl-datetime"
+    },
+
+    "require": {
+        "php": ">=5.3.3"
+    },
+
+    "require-dev": {
+        "php": ">=5.3.3"
+    },
+
+    "autoload": {
+        "psr-0": { "Xpl\\DateTime": "src/" }
+    },
+
+    "extra": {
+        "branch-alias": { "dev-master": "1.0.x-dev" }
+    },
+
+    "archive": {
+        "exclude": [ "tests", "*phpunit.xml*", "composer.phar" ]
+    }
+}
