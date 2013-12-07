@@ -19,7 +19,7 @@ use Xpl\DateTime\Exception\LogicException;
  *
  * @author Oscar Cubo Medina <ocubom@gmail.com>
  */
-class Interval
+class Interval implements IntervalInterface
 {
     /**
      * Start date (from)
@@ -79,6 +79,52 @@ class Interval
             $this->setFromDate($from);
             $this->setTillDate($till);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \IntrevalInterface::contains()
+     */
+    public function contains($datetime)
+    {
+        // Convert argument into Datetime
+        $datetime = new DateTime($datetime);
+
+        // Check from (if any)
+        if (null !== $this->from && $datetime < $this->from) {
+            return false;
+        }
+
+        // Check till (if any)
+        if (null !== $this->till && $datetime >= $this->till) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Iterate the interval based on duration
+     *
+     * @param mixed $step    Step count or duration specification
+     * @param int   $options Iterator options
+     *
+     * @return \RepeatingInterval
+     */
+    public function iterate($step, $options = 0)
+    {
+        return new RepeatingInterval($this, $step, $options);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @see \IteratorAggregate::getIterator()
+     */
+    public function getIterator()
+    {
+        return new RepeatingInterval($this, 'P1D');
     }
 
     /**

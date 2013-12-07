@@ -183,6 +183,12 @@ class Util
         }
 
         // Parse ISO spec
+        if (preg_match('@^(R(\d)+/([^/]+)/([^/]+)$@Uis', $txt, $matches)) {
+            // Try to create interval with spec matches
+            return new RepeatingInterval($txt);
+        }
+
+        // Parse ISO spec
         if (preg_match('@^([^/]+)/([^/]+)$@Uis', $txt, $matches)) {
             // Try to create interval with spec matches
             return new Interval($matches[1], $matches[2]);
