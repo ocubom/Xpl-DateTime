@@ -22,6 +22,7 @@ following PHP snippet:
 
 ```php
 use Xpl\DateTime\DateTime as DateTime;
+use Xpl\DateTime\Duration as DateInterval;
 use Xpl\DateTime\TimeZone as DateTimeZone;
 ```
 

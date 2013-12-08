@@ -117,7 +117,7 @@ class DateTime extends \DateTime
             // Exception message
             'Could not add %2$s to %1$s',
             // Convert argument into interval
-            $interval instanceof \DateInterval ? $interval : new \DateInterval($interval)
+            $interval instanceof \DateInterval ? $interval : new Duration($interval)
         );
     }
 
@@ -133,14 +133,16 @@ class DateTime extends \DateTime
      */
     public function diff($datetime, $absolute = false)
     {
-        return $this->callParent(
-            // Name of the parent method
-            __FUNCTION__,
-            // Exception message
-            'Could not diff %1$s and %2$s',
-            // Clean arguments for parent call
-            $datetime instanceof \DateTime ? $datetime : new DateTime($datetime),
-            $absolute
+        return new Duration(
+            $this->callParent(
+                // Name of the parent method
+                __FUNCTION__,
+                // Exception message
+                'Could not diff %1$s and %2$s',
+                // Clean arguments for parent call
+                $datetime instanceof \DateTime ? $datetime : new DateTime($datetime),
+                $absolute
+            )
         );
     }
 
@@ -218,7 +220,7 @@ class DateTime extends \DateTime
             // Exception message
             'Could not substract %2$s to %1$s',
             // Clean arguments for parent call
-            $interval instanceof \DateInterval ? $interval : new \DateInterval($interval)
+            $interval instanceof \DateInterval ? $interval : new Duration($interval)
         );
     }
 

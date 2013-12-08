@@ -15,6 +15,12 @@ error_reporting(E_ALL);
 // Convert all errors into exceptions
 set_error_handler(
     function ($errno, $errstr, $errfile, $errline, $errcontext) {
+        // Ignore if error reporting is disabled
+        if (0 === error_reporting()) {
+            return;
+        }
+
+        // Convert into ErrorException
         throw new \ErrorException($errstr, $errno, $errno, $errfile, $errline);
     }
 );
