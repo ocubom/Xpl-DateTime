@@ -25,6 +25,7 @@ use Xpl\DateTime\DateTime as DateTime;
 use Xpl\DateTime\DateTimeImmutable as DateTimeImmutable;
 use Xpl\DateTime\DateTimeInterface as DateTimeInterface;
 use Xpl\DateTime\Duration as DateInterval;
+use Xpl\DateTime\Interval as DatePeriod;
 use Xpl\DateTime\TimeZone as DateTimeZone;
 ```
 

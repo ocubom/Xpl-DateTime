@@ -152,6 +152,47 @@ class Util
     }
 
     /**
+     * Try to convert specification into a valid DateTime object
+     *
+     * @param string $value Value specification
+     *
+     * @return Interval or null for empty values or false if conversion fails
+     */
+    public static function createInterval($value)
+    {
+        // Convert empty values into null
+        if (empty($value)) {
+            return null;
+        }
+
+        // Do not convert Interval objects
+        if ($value instanceof Interval) {
+            return $value;
+        }
+
+        // Try to convert into a string
+        $txt = Util::toString($value);
+        if (false === $txt) {
+            // Could no convert into string
+            return false;
+        }
+
+        // '-' is a null value
+        if ('-' === $txt) {
+            return null;
+        }
+
+        // Parse ISO spec
+        if (preg_match('@^([^/]+)/([^/]+)$@Uis', $txt, $matches)) {
+            // Try to create interval with spec matches
+            return new Interval($matches[1], $matches[2]);
+        }
+
+        // No conversion found
+        return false;
+    }
+
+    /**
      * Check if object is a DateTime.
      *
      * Provides compatibility with PHP <5.5 (laks of \DateTimeInterface)
