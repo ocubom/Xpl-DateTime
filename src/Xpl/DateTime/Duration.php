@@ -67,7 +67,7 @@ class Duration extends \DateInterval
                 $this->checksum = $spec->checksum;
                 $this->invert   = $spec->invert;
                 $this->seconds  = $spec->seconds;
-            } elseif ($spec instanceof \DateTime) {
+            } elseif (Util::isDateTime($spec)) {
                 // Two dates (second one may be null => now)
                 $diff = date_diff($spec, new DateTime($datetime));
 

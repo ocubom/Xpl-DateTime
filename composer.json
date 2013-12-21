@@ -23,7 +23,10 @@
     },
 
     "autoload": {
-        "psr-0": { "Xpl\\DateTime": "src/" }
+        "psr-0": {
+            "DateTimeInterface": "src/",
+            "Xpl\\DateTime": "src/"
+        }
     },
 
     "extra": {

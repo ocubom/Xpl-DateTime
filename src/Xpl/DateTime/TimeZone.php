@@ -35,7 +35,7 @@ class TimeZone extends \DateTimeZone
             } elseif ($timezone instanceof \DateTimeZone) {
                 // Copy/convert constructor
                 parent::__construct($timezone->getName());
-            } elseif ($timezone instanceof \DateTime) {
+            } elseif (Util::isDateTime($timezone)) {
                 // Copy DateTime zone
                 parent::__construct($timezone->getTimeZone()->getName());
             } else {

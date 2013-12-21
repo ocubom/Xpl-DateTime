@@ -152,6 +152,20 @@ class Util
     }
 
     /**
+     * Check if object is a DateTime.
+     *
+     * Provides compatibility with PHP <5.5 (laks of \DateTimeInterface)
+     *
+     * @param mixed $object The object
+     *
+     * @return boolean
+     */
+    public static function isDateTime($object)
+    {
+        return $object instanceof \DateTimeInterface || $object instanceof \DateTime;
+    }
+
+    /**
      * Convert the value into its representation
      *
      * Disables error_reporting for this call (similar to as dirty '@' operator)
@@ -212,6 +226,13 @@ class Util
      */
     public static function toTypeString($value)
     {
+        // Try direct string conversion
+        $string = self::toString($value);
+        if (false !== $string) {
+            return $string;
+        }
+
+        // Return type of value
         return is_object($value)
             ? sprintf('Object of class %s', get_class($value))
             : sprintf('Variable of type %s', gettype($value));

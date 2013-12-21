@@ -44,10 +44,17 @@ class DateTimeTest extends TestCase
         // Create object
         $datetime = $class->newInstanceArgs($args);
 
+        // Check correct types
+        $this->assertInstanceOf('\\DateTime', $datetime);
+        $this->assertInstanceOf('\\DateTimeInterface', $datetime);
+        $this->assertInstanceOf('\\Xpl\\DateTime\\DateTimeInterface', $datetime);
+
         // Must implement __toString that returns the ISO8601 representation
         $this->assertEquals($iso, "$datetime");
         // Must manage timezones
         $this->assertEquals($timezone, $datetime->getTimezone()->getName());
+
+
     }
 
     /**
@@ -72,6 +79,13 @@ class DateTimeTest extends TestCase
 
         // createFromFormat
         $datetime = $class->getMethod('createFromFormat')->invokeArgs(null, $args);
+
+        // Check correct types
+        $this->assertInstanceOf('\\DateTime', $datetime);
+        $this->assertInstanceOf('\\DateTimeInterface', $datetime);
+        $this->assertInstanceOf('\\Xpl\\DateTime\\DateTimeInterface', $datetime);
+
+        // Must implement __toString that returns the ISO8601 representation
         $this->assertEquals($iso, "$datetime");
     }
 

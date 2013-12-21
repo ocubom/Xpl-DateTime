@@ -18,7 +18,7 @@ use Xpl\DateTime\Exception\InvalidArgumentException;
  *
  * @author Oscar Cubo Medina <ocubom@gmail.com>
  */
-class DateTime extends \DateTime
+class DateTime extends \DateTime implements DateTimeInterface
 {
     // Internal format used for tranfers
     const PORTABLE = "Y-m-d\TH:i:s.u e";
@@ -38,7 +38,7 @@ class DateTime extends \DateTime
             if (empty($datetime)) {
                 // Use "now" on current configured timezone
                 parent::__construct(date(self::PORTABLE));
-            } elseif ($datetime instanceof \DateTime) {
+            } elseif (Util::isDateTime($datetime)) {
                 // Copy/convert constructor
                 parent::__construct(
                     $datetime->format(self::PORTABLE),
@@ -140,7 +140,7 @@ class DateTime extends \DateTime
                 // Exception message
                 'Could not diff %1$s and %2$s',
                 // Clean arguments for parent call
-                $datetime instanceof \DateTime ? $datetime : new DateTime($datetime),
+                Util::isDateTime($datetime) ? $datetime : new DateTime($datetime),
                 $absolute
             )
         );
