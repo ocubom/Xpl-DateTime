@@ -376,7 +376,7 @@ class DateTime extends \DateTime
      *
      * @throws InvalidArgumentException Something fails
      */
-    private function callParent($method, $error, $arguments = null)
+    protected function callParent($method, $error, $arguments = null)
     {
         // Get all arguments (exclude $method)
         $arguments = array_slice(func_get_args(), 2);

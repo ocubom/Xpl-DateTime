@@ -22,33 +22,6 @@ use Xpl\DateTime\TimeZone;
 class DateTimeTest extends TestCase
 {
     /**
-     * Class reflected
-     *
-     * @var \ReflectionClass
-     */
-    static private $factory;
-
-    /**
-     * Create from format
-     *
-     * @var \Closure
-     */
-    static private $builder;
-
-    /**
-     * Setup test environment
-     */
-    public static function setUpBeforeClass()
-    {
-        // Call parent
-        parent::setUpBeforeClass();
-
-        // Obtain reflected class
-        self::$factory = new \ReflectionClass('\\Xpl\\DateTime\\DateTime');
-        self::$builder = self::$factory->getMethod('createFromFormat');
-    }
-
-    /**
      * Constructor test
      *
      * @param string $iso      ISO8601 text representation. Null for invalid value.
@@ -59,6 +32,9 @@ class DateTimeTest extends TestCase
      */
     public function testConstructor($iso, $args, $timezone = null)
     {
+        // Obtain class factory
+        $class = $this->getClass();
+
         // Check if arguments are valid or setup exception
         if (null === $iso) {
             // Configure expected exception
@@ -66,7 +42,7 @@ class DateTimeTest extends TestCase
         }
 
         // Create object
-        $datetime = self::$factory->newInstanceArgs($args);
+        $datetime = $class->newInstanceArgs($args);
 
         // Must implement __toString that returns the ISO8601 representation
         $this->assertEquals($iso, "$datetime");
@@ -85,6 +61,9 @@ class DateTimeTest extends TestCase
      */
     public function testFactory($iso, $args)
     {
+        // Obtain class factory
+        $class = $this->getClass();
+
         // Check if arguments are valid or setup exception
         if (null === $iso) {
             // Configure expected exception
@@ -92,7 +71,7 @@ class DateTimeTest extends TestCase
         }
 
         // createFromFormat
-        $datetime = self::$builder->invokeArgs(null, $args);
+        $datetime = $class->getMethod('createFromFormat')->invokeArgs(null, $args);
         $this->assertEquals($iso, "$datetime");
     }
 
@@ -101,9 +80,12 @@ class DateTimeTest extends TestCase
      */
     public function testFormat()
     {
+        // Obtain class factory
+        $class = $this->getClass();
+
         // Create reference timestamp and DateTime object
         $timestamp = time();
-        $datetime  = new DateTime(date(DateTime::PORTABLE, $timestamp));
+        $datetime  = $class->newInstance(date(DateTime::PORTABLE, $timestamp));
 
         // Check on default timezone
         $this->assertEquals(date('c', $timestamp), "$datetime");
@@ -124,29 +106,34 @@ class DateTimeTest extends TestCase
      */
     public function testMethods($method, $args)
     {
-        // Create now object and copy on standard object
-        $xpl = new DateTime();
-        $spl = new \DateTime($xpl->format(DateTime::PORTABLE));
+        // Obtain class factory
+        $class = $this->getClass();
+
+        // Create now object as reference
+        $ref = $class->newInstance();
+        // Copy reference on both SPL and XPL objects
+        $xpl = $class->newInstance($ref);
+        $spl = new \DateTime($ref->format(DateTime::PORTABLE));
 
         // Check that both are the same
         $this->assertEquals($spl->format(DateTime::PORTABLE), $xpl->format(DateTime::PORTABLE));
 
         // Perform operation
-        $spl = call_user_func_array(array($spl, $method), $args);
-        $xpl = call_user_func_array(array($xpl, $method), $args);
+        $xplnew = call_user_func_array(array($spl, $method), $args);
+        $splnew = call_user_func_array(array($xpl, $method), $args);
 
         // Check results
         $this->assertEquals(
-            $spl->format(DateTime::PORTABLE),
-            $xpl->format(DateTime::PORTABLE)
+            $splnew->format(DateTime::PORTABLE),
+            $xplnew->format(DateTime::PORTABLE)
         );
         $this->assertEquals(
-            $spl->getOffset(),
-            $xpl->getOffset()
+            $splnew->getOffset(),
+            $splnew->getOffset()
         );
 
         // Check that diff is zero
-        $diff = $xpl->diff($spl);
+        $diff = $xplnew->diff($splnew);
         $this->assertEquals('P0Y0M0DT0H0M0S', $diff->format('P%yY%mM%dDT%hH%iM%sS'));
     }
 
@@ -160,6 +147,9 @@ class DateTimeTest extends TestCase
      */
     public function provideConstructorArgs()
     {
+        // Obtain class factory
+        $class = $this->getClass();
+
         // Obtain today on default and alternative timezones
         $default = new \DateTime('today', new \DateTimeZone(self::DEFAULT_TZ));
         $pacific = new \DateTime('today', new \DateTimeZone(self::PACIFIC_TZ));
@@ -232,7 +222,7 @@ class DateTimeTest extends TestCase
             // 9. Copy constructor. Should ignore timezone
             array(
                 $default->format(DateTime::RFC3339),
-                array(new DateTime($default), self::PACIFIC_TZ),
+                array($class->newInstance($default), self::PACIFIC_TZ),
                 self::DEFAULT_TZ,
             ),
 
@@ -299,5 +289,21 @@ class DateTimeTest extends TestCase
             array('setTime',     array(14, 3, 2)),
             array('setTimezone', array(new TimeZone(self::PACIFIC_TZ))),
         );
+    }
+
+    /**
+     * Returns reflected class to test
+     *
+     * @return \ReflectionClass
+     */
+    protected function getClass()
+    {
+        // Cache instance on first call
+        static $class = null;
+        if (null === $class) {
+            $class = new \ReflectionClass('\\Xpl\\DateTime\\DateTime');
+        }
+
+        return $class;
     }
 }
