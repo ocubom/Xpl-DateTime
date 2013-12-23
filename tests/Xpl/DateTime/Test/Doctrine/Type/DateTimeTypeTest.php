@@ -46,10 +46,10 @@ class DateTimeTypeTest extends \Xpl\DateTime\Test\TestCase
         parent::setUpBeforeClass();
 
         // Register type
-        if (Type::hasType(self::TYPE_NAME)) {
-            Type::overrideType(self::TYPE_NAME, self::TYPE_CLASS);
+        if (Type::hasType(static::TYPE_NAME)) {
+            Type::overrideType(static::TYPE_NAME, static::TYPE_CLASS);
         } else {
-            Type::addType(self::TYPE_NAME, self::TYPE_CLASS);
+            Type::addType(static::TYPE_NAME, static::TYPE_CLASS);
         }
     }
 
