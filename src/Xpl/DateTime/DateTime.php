@@ -20,6 +20,15 @@ use Xpl\DateTime\Exception\InvalidArgumentException;
  */
 class DateTime extends \DateTime implements DateTimeInterface
 {
+    // Week days
+    const SUNDAY    = 0;
+    const MONDAY    = 1;
+    const TUESDAY   = 2;
+    const WEDNESDAY = 3;
+    const THURSDAY  = 4;
+    const FRIDAY    = 5;
+    const SATURDAY  = 6;
+
     // Internal format used for tranfers
     const PORTABLE = "Y-m-d\TH:i:s.u e";
 
@@ -352,6 +361,140 @@ class DateTime extends \DateTime implements DateTimeInterface
             // Clean arguments for parent call
             new TimeZone($timezone)
         );
+    }
+
+
+    /**
+     * Year
+     *
+     * @return integer
+     */
+    public function getYear()
+    {
+        return 0 + parent::format('Y');
+    }
+
+    /**
+     * Month
+     *
+     * @return integer
+     */
+    public function getMonth()
+    {
+        return 0 + parent::format('m');
+    }
+
+    /**
+     * Day
+     *
+     * @return integer
+     */
+    public function getDay()
+    {
+        return 0 + parent::format('d');
+    }
+
+    /**
+     * Hour
+     *
+     * @return integer
+     */
+    public function getHour()
+    {
+        return 0 + parent::format('H');
+    }
+
+    /**
+     * Minute
+     *
+     * @return integer
+     */
+    public function getMinute()
+    {
+        return 0 + parent::format('i');
+    }
+
+    /**
+     * Second
+     *
+     * @return integer
+     */
+    public function getSecond()
+    {
+        return 0 + parent::format('s');
+    }
+
+    /**
+     * Microseconds
+     *
+     * @return float
+     */
+    public function getMicrosecond()
+    {
+        return 0 + parent::format('u') / 1000000;
+    }
+
+    /**
+     * Week number
+     *
+     * @return integer
+     */
+    public function getWeek()
+    {
+        return 0 + parent::format('W');
+    }
+
+    /**
+     * Day of week
+     *
+     * One of the constants SUNDAY to SUNDAY
+     *
+     * @return integer
+     */
+    public function getDayOfWeek()
+    {
+        return 0 + parent::format('w');
+    }
+
+    /**
+     * Day of year
+     *
+     * @return integer
+     */
+    public function getDayOfYear()
+    {
+        return 0 + parent::format('z');
+    }
+
+    /**
+     * Magic method used to access properties
+     *
+     * @param string $name Property name to recover
+     *
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        // Clean argument
+        $name = strtolower($name);
+
+        // Obtain getter methods
+        $getters = array(
+            'get' . $name,
+            'is'  . $name,
+        );
+
+        // Search all getter methods (get* or is*)
+        $class = new \ReflectionClass($this);
+        foreach ($class->getMethods(\ReflectionMethod::IS_PUBLIC) as $method) {
+            // Check if method match property
+            if (in_array(strtolower($method->getName()), $getters)) {
+                return $method->invoke($this);
+            }
+        }
+
+        // Nothing found
+        return null;
     }
 
     /**

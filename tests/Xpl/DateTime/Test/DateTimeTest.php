@@ -112,6 +112,28 @@ class DateTimeTest extends TestCase
     /**
      * Check that the same call to methods produces the same result.
      *
+     * @param string   $property Property name
+     * @param DateTime $date     Reference date
+     * @param float    $value    Property value
+     *
+     * @depends testConstructor
+     * @dataProvider provideGetters
+     */
+    public function testGetProperties($property, $date, $value)
+    {
+        // Obtain class factory
+        $class = $this->getClass();
+
+        // Create now object as reference
+        $date = $class->newInstance($date);
+
+        // Check that both are the same
+        $this->assertEquals($value, $date->$property);
+    }
+
+    /**
+     * Check that the same call to methods produces the same result.
+     *
      * @param string $method Method name
      * @param array  $args   Method arguments
      *
@@ -284,6 +306,37 @@ class DateTimeTest extends TestCase
                 null,
                 array('InvalidFormat', 'InvalidDate'),
             ),
+        );
+    }
+
+    /**
+     * Getters
+     *
+     * Adapted from PHP documentation examples.
+     * http://php.net/manual/datetime.construct.php#example-627
+     *
+     * @return array
+     */
+    public function provideGetters()
+    {
+        $date = new \DateTime('2012-02-29 16:40:57.167845 Europe/Madrid');
+
+        return array(
+            array('Timezone',    $date, new \DateTimeZone('Europe/Madrid')),
+            array('Timestamp',   $date, $date->getTimestamp()),
+            // Custom properties
+            array('Year',        $date, $date->format('Y')),
+            array('Month',       $date, $date->format('m')),
+            array('Day',         $date, $date->format('d')),
+            array('Hour',        $date, $date->format('H')),
+            array('Minute',      $date, $date->format('i')),
+            array('Second',      $date, $date->format('s')),
+            array('Microsecond', $date, $date->format('u') / 1000000),
+            array('Week',        $date, $date->format('W')),
+            array('DayOfWeek',   $date, $date->format('w')),
+            array('DayOfYear',   $date, $date->format('z')),
+            // Invalid property
+            array('InvalidName', $date, null),
         );
     }
 
