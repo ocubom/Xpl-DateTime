@@ -19,7 +19,12 @@
     },
 
     "require-dev": {
+        "doctrine/dbal": ">=2.2",
         "php": ">=5.3.6"
+    },
+
+    "suggest": {
+        "doctrine/dbal": "Enable the use of DateTimes as doctrine field type."
     },
 
     "autoload": {
