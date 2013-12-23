@@ -45,7 +45,7 @@ class TimestampTypeTest extends DateTimeTypeTest
     public function testMysqlType()
     {
         $platform = $this
-            ->getMockBuilder('\\Doctrine\\DBAL\\Platforms\\MysqlPlatform')
+            ->getMockBuilder('\\Doctrine\\DBAL\\Platforms\\MySqlPlatform')
             ->getMockForAbstractClass();
 
         $this->assertEquals(
