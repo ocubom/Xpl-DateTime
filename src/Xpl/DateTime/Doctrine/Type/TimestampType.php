@@ -15,8 +15,6 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\DateTimeType as DateTimeTypeBase;
 use Xpl\DateTime\DateTime;
-use Xpl\DateTime\TimeZone;
-use Xpl\DateTime\Util;
 
 /**
  * Use timestamp type for storing date/times.

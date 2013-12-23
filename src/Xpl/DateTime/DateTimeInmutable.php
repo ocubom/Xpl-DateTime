@@ -33,9 +33,6 @@ class DateTimeInmutable extends DateTime
      */
     protected function callParent($method, $error, $arguments = null)
     {
-        // Get all arguments (exclude $method)
-        $arguments = array_slice(func_get_args(), 2);
-
         // Check methods that change state
         if ('set' == substr($method, 0, 3) || in_array($method, array('add', 'format', 'modify', 'sub'))) {
             // Call parent on cloned instance
