@@ -26,34 +26,34 @@ class DateTime extends \DateTime implements DateTimeInterface
     /**
      * Constructor.
      *
-     * @param mixed $datetime Date&time specification
+     * @param mixed $datespec Date&time specification
      * @param mixed $timezone Time zone specification
      *
      * @see \DateTime::__construct()
      */
-    public function __construct($datetime = null, $timezone = null)
+    public function __construct($datespec = null, $timezone = null)
     {
         try {
             // Create based on argument types
-            if (empty($datetime)) {
+            if (empty($datespec)) {
                 // Use "now" on current configured timezone
                 parent::__construct(date(self::PORTABLE));
-            } elseif (Util::isDateTime($datetime)) {
+            } elseif (Util::isDateTime($datespec)) {
                 // Copy/convert constructor
                 parent::__construct(
-                    $datetime->format(self::PORTABLE),
-                    $datetime->getTimezone() // Use instance timezone
+                    $datespec->format(self::PORTABLE),
+                    $datespec->getTimezone() // Use instance timezone
                 );
-            } elseif (is_numeric($datetime)) {
+            } elseif (is_numeric($datespec)) {
                 // UNIX timestamp
                 parent::__construct(
-                    gmdate(self::PORTABLE, 0 + $datetime),
+                    gmdate(self::PORTABLE, 0 + $datespec),
                     new \DateTimeZone('UTC') // Timestamp always on UTC
                 );
             } else {
                 // Fallback constructor
                 parent::__construct(
-                    Util::toString($datetime, true),
+                    Util::toString($datespec, true),
                     new TimeZone($timezone) // Given timezone as object
                 );
             }

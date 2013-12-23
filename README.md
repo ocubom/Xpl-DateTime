@@ -8,7 +8,8 @@ with the default extension. It is also more [ISO 8601][] compilant.
 
 | Version | Status | SensioLabsInsight |
 | ------- | ------ | ----------------- |
-| [![Latest Unstable Version](https://poser.pugx.org/xpl/datetime/v/unstable.png)](https://packagist.org/packages/xpl/datetime) | [![Build Status](https://travis-ci.org/ocubom/Xpl-DateTime.png?branch=master)](https://travis-ci.org/ocubom/Xpl-DateTime) | [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b0a9a1fa-e676-4484-80ec-61382f2674eb/big.png)](https://insight.sensiolabs.com/projects/b0a9a1fa-e676-4484-80ec-61382f2674eb) |
+| [![Latest Unstable Version](https://poser.pugx.org/xpl/datetime/v/unstable.png)](https://packagist.org/packages/xpl/datetime) | [![Build Status](https://travis-ci.org/ocubom/Xpl-DateTime.png?branch=master)](https://travis-ci.org/ocubom/Xpl-DateTime) [![Coverage Status](https://coveralls.io/repos/ocubom/Xpl-DateTime/badge.png?branch=master)](https://coveralls.io/r/ocubom/Xpl-DateTime) | [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b0a9a1fa-e676-4484-80ec-61382f2674eb/big.png)](https://insight.sensiolabs.com/projects/b0a9a1fa-e676-4484-80ec-61382f2674eb) |
+
 
 Documentation
 -------------
