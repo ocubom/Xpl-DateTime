@@ -5,6 +5,10 @@ php:
   - 5.4
   - 5.5
 
+branches:
+  except:
+    - /^draft-.*/
+
 before_script:
   - composer self-update
   - composer require satooshi/php-coveralls:dev-master --no-update
