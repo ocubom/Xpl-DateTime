@@ -20,7 +20,7 @@
 
     "require-dev": {
         "doctrine/dbal": ">=2.2",
-        "php": ">=5.3.6"
+        "phpunit/phpunit": "~4.0"
     },
 
     "suggest": {
