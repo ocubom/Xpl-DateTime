@@ -303,15 +303,16 @@ class DateTime extends \DateTime implements DateTimeInterface
     /**
      * Resets the current time to a different one.
      *
-     * @param mixed $hour   Hour of the time
-     * @param mixed $minute Minute of the time
-     * @param mixed $second Second of the time
+     * @param mixed $hour         Hour of the time
+     * @param mixed $minute       Minute of the time
+     * @param mixed $second       Second of the time
+     * @param mixed $microseconds Microsecond of the time
      *
      * @return DateTime
      *
      * @see \DateTime::setTime()
      */
-    public function setTime($hour = 0, $minute = 0, $second = 0)
+    public function setTime($hour = 0, $minute = 0, $second = 0, $microseconds = 0)
     {
         return $this->callParent(
             // Name of the parent method
@@ -321,7 +322,8 @@ class DateTime extends \DateTime implements DateTimeInterface
             // Clean arguments for parent call
             empty($hour)   ? 0 : $hour,
             empty($minute) ? 0 : $minute,
-            empty($second) ? 0 : $second
+	    empty($second) ? 0 : $second,
+	    empty($microseconds) ? 0 : $microseconds
         );
     }
 

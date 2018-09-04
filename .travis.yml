@@ -1,10 +1,8 @@
 language: php
 
 php:
-  - 5.5
-  - 5.4
-  - 5.3
-  - hhvm
+  - 7.2
+  - 7.1
 
 branches:
   except:
@@ -20,10 +18,10 @@ branches:
 
 before_script:
   - composer self-update
-  - composer require satooshi/php-coveralls:dev-master --no-update
+  - composer require php-coveralls/php-coveralls --no-update
   - composer install
 
 script: phpunit --coverage-text
 
 after_script:
-  - php vendor/bin/coveralls -v
+  - php vendor/bin/php-coveralls -v
